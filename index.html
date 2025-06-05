@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Law Firm - Professional Legal Services</title>
+    <link href="css/tailwind.css" rel="stylesheet">
+    <style>
+        .loading-spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #f59e0b;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+        
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-off-white">
+    <div class="min-h-screen flex items-center justify-center">
+        <div class="text-center fade-in">
+            <div class="loading-spinner"></div>
+            <h1 class="text-heading-2 text-primary mb-4">Welcome to Our Law Firm</h1>
+            <p class="text-body text-medium-gray mb-6">Redirecting you to our homepage...</p>
+            <div class="space-y-2 text-body-small text-dark-gray">
+                <p>Available Pages:</p>
+                <ul class="space-y-1">
+                    <li>• Homepage with Hero Section</li>
+                    <li>• About Section with Timeline</li>
+                    <li>• Practice Areas Section</li>
+                    <li>• Contact Section with Form</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Redirect to homepage after 3 seconds
+        setTimeout(function() {
+            window.location.href = 'pages/homepage_with_hero_section.html';
+        }, 3000);
+        
+        // Optional: Allow immediate redirect on click
+        document.addEventListener('click', function() {
+            window.location.href = 'pages/homepage_with_hero_section.html';
+        });
+        
+        // Add fade-in animation to body
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease-in-out';
+            setTimeout(function() {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+<script id="dhws-dataInjector" src="public/dhws-data-injector.js"></script>
+<script id="dhws-elementInspector" src="public/dhws-web-inspector.js"></script>
+<script id="dhws-errorTracker" src="public/dhws-error-tracker.js"></script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Primary Colors */
+  --color-primary: #1e1b4b; /* indigo-950 */
+  --color-primary-light: #312e81; /* indigo-900 */
+  --color-accent: #f59e0b; /* amber-500 */
+  --color-accent-dark: #d97706; /* amber-600 */
+  --color-secondary: #991b1b; /* red-800 */
+  --color-secondary-light: #b91c1c; /* red-700 */
+  
+  /* Neutral Colors */
+  --color-white: #ffffff; /* white */
+  --color-off-white: #f9fafb; /* gray-50 */
+  --color-light-gray: #e5e7eb; /* gray-200 */
+  --color-medium-gray: #9ca3af; /* gray-400 */
+  --color-dark-gray: #374151; /* gray-700 */
+  --color-charcoal: #1f2937; /* gray-800 */
+  --color-black: #000000; /* black */
+  
+  /* Semantic Colors */
+  --color-success: #059669; /* green-600 */
+  --color-warning: #eab308; /* yellow-500 */
+  --color-error: #dc2626; /* red-600 */
+  --color-info: #2563eb; /* blue-600 */
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    color: var(--color-black);
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Merriweather', serif;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-accent text-black px-6 py-3 rounded-lg font-medium transition-all duration-300 hover:bg-accent-dark hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2;
+  }
+  
+  .btn-secondary {
+    @apply border-2 border-accent text-accent px-6 py-3 rounded-lg font-medium transition-all duration-300 hover:bg-accent hover:text-black hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2;
+  }
+  
+  .btn-tertiary {
+    @apply text-accent font-medium transition-all duration-300 hover:underline focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2;
+  }
+  
+  .btn-danger {
+    @apply bg-secondary text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 hover:bg-secondary-light hover:scale-105 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2;
+  }
+  
+  .card {
+    @apply bg-white rounded-lg shadow-md transition-all duration-300 hover:shadow-lg hover:scale-102;
+  }
+  
+  .input-field {
+    @apply w-full px-4 py-3 border border-light-gray rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-colors duration-300;
+  }
+  
+  .section-padding {
+    @apply py-16 md:py-24;
+  }
+  
+  .hero-padding {
+    @apply py-24 md:py-32;
+  }
+  
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}
+
+@layer utilities {
+  .text-hero {
+    @apply text-5xl md:text-6xl font-serif font-bold;
+  }
+  
+  .text-heading-1 {
+    @apply text-4xl md:text-5xl font-serif font-bold;
+  }
+  
+  .text-heading-2 {
+    @apply text-3xl md:text-4xl font-serif font-semibold;
+  }
+  
+  .text-heading-3 {
+    @apply text-2xl font-serif font-semibold;
+  }
+  
+  .text-subtitle {
+    @apply text-xl font-sans font-medium;
+  }
+  
+  .text-body-large {
+    @apply text-lg font-sans;
+  }
+  
+  .text-body {
+    @apply text-base font-sans;
+  }
+  
+  .text-body-small {
+    @apply text-sm font-sans;
+  }
+  
+  .text-caption {
+    @apply text-xs font-sans;
+  }
+  
+  .scale-102 {
+    transform: scale(1.02);
+  }
+  
+  .scale-105 {
+    transform: scale(1.05);
+  }
+  
+  .scale-98 {
+    transform: scale(0.98);
+  }
+}

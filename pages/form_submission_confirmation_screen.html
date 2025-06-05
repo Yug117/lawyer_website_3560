@@ -1,0 +1,650 @@
+<!-- /home/ubuntu/app/lawyer_website/pages/form_submission_confirmation_screen.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Submission Confirmation - Advocate Shivam Jivani</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @keyframes checkmark {
+            0% {
+                transform: scale(0) rotate(45deg);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.2) rotate(45deg);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1) rotate(45deg);
+                opacity: 1;
+            }
+        }
+        
+        .checkmark-animation {
+            animation: checkmark 1.5s ease-in-out;
+        }
+        
+        .scrollable-message {
+            max-height: 120px;
+            overflow-y: auto;
+        }
+        
+        .admin-only {
+            display: none;
+        }
+        
+        .admin-view .admin-only {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-off-white min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-primary shadow-lg fixed w-full top-0 z-50">
+        <div class="container-custom">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-accent rounded-full flex items-center justify-center">
+                        <i class="fas fa-balance-scale text-primary text-lg"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-white font-serif text-xl font-bold">Advocate Shivam Jivani</h1>
+                        <p class="text-accent text-sm">Legal Excellence</p>
+                    </div>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="homepage_with_hero_section.html" class="text-white hover:text-accent transition-colors duration-300">Home</a>
+                    <a href="about_section_with_timeline.html" class="text-white hover:text-accent transition-colors duration-300">About</a>
+                    <a href="practice_areas_section.html" class="text-white hover:text-accent transition-colors duration-300">Practice Areas</a>
+                    <a href="contact_section_with_form.html" class="text-white hover:text-accent transition-colors duration-300">Contact</a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-white hover:text-accent transition-colors duration-300" id="mobile-menu-btn">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile Navigation -->
+            <div class="md:hidden hidden" id="mobile-menu">
+                <div class="py-4 space-y-4 border-t border-primary-light">
+                    <a href="homepage_with_hero_section.html" class="block text-white hover:text-accent transition-colors duration-300 py-2">Home</a>
+                    <a href="about_section_with_timeline.html" class="block text-white hover:text-accent transition-colors duration-300 py-2">About</a>
+                    <a href="practice_areas_section.html" class="block text-white hover:text-accent transition-colors duration-300 py-2">Practice Areas</a>
+                    <a href="contact_section_with_form.html" class="block text-white hover:text-accent transition-colors duration-300 py-2">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Confirmation Section -->
+    <section class="section-padding mt-20 relative overflow-hidden">
+        <!-- Background Watermark -->
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <i class="fas fa-check-circle text-light-gray text-opacity-5" style="font-size: 40rem;"></i>
+        </div>
+        
+        <div class="container-custom relative z-10">
+            <!-- Success Message with Animation -->
+            <div class="text-center mb-12">
+                <div class="inline-flex items-center justify-center w-24 h-24 bg-success bg-opacity-10 rounded-full mb-6">
+                    <i class="fas fa-check-circle text-success text-5xl checkmark-animation"></i>
+                </div>
+                <h1 class="text-heading-1 text-primary mb-4">Message Sent Successfully!</h1>
+                <p class="text-body-large text-dark-gray max-w-2xl mx-auto">
+                    Thank you for contacting us. We have received your message and will get back to you within 24 hours.
+                </p>
+            </div>
+
+            <!-- Submission Details Card -->
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-white rounded-xl shadow-medium p-8 md:p-12">
+                    <div class="flex justify-between items-start mb-8">
+                        <div>
+                            <h2 class="text-heading-2 text-primary mb-2">Submission Details</h2>
+                            <div class="flex flex-col sm:flex-row sm:items-center sm:space-x-6 space-y-2 sm:space-y-0 text-body-small text-medium-gray">
+                                <div class="flex items-center space-x-2">
+                                    <i class="fas fa-hashtag"></i>
+                                    <span>Reference: <span class="font-medium text-dark-gray" id="reference-number"></span></span>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <i class="fas fa-clock"></i>
+                                    <span>Submitted: <span class="font-medium text-dark-gray" id="submission-timestamp"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Admin Copy Button -->
+                        <button id="copy-details-btn" class="admin-only btn-secondary text-sm px-4 py-2" title="Copy submission details to clipboard">
+                            <i class="fas fa-copy mr-2"></i>
+                            Copy Details
+                        </button>
+                    </div>
+
+                    <!-- Submitted Information Grid -->
+                    <div class="grid md:grid-cols-2 gap-6 mb-8">
+                        <!-- Name -->
+                        <div class="space-y-2">
+                            <div class="flex items-center space-x-2 text-body-small font-medium text-dark-gray">
+                                <i class="fas fa-user text-accent"></i>
+                                <span>Full Name</span>
+                            </div>
+                            <p class="text-body text-primary font-medium pl-6" id="submitted-name">-</p>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="space-y-2">
+                            <div class="flex items-center space-x-2 text-body-small font-medium text-dark-gray">
+                                <i class="fas fa-envelope text-accent"></i>
+                                <span>Email Address</span>
+                            </div>
+                            <p class="text-body text-primary font-medium pl-6" id="submitted-email">-</p>
+                        </div>
+
+                        <!-- Phone -->
+                        <div class="space-y-2">
+                            <div class="flex items-center space-x-2 text-body-small font-medium text-dark-gray">
+                                <i class="fas fa-phone text-accent"></i>
+                                <span>Phone Number</span>
+                            </div>
+                            <p class="text-body text-primary font-medium pl-6" id="submitted-phone">-</p>
+                        </div>
+
+                        <!-- Case Type -->
+                        <div class="space-y-2">
+                            <div class="flex items-center space-x-2 text-body-small font-medium text-dark-gray">
+                                <i class="fas fa-gavel text-accent"></i>
+                                <span>Case Type</span>
+                            </div>
+                            <p class="text-body text-primary font-medium pl-6" id="submitted-case-type">-</p>
+                        </div>
+                    </div>
+
+                    <!-- Message Section -->
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-center space-x-2 text-body-small font-medium text-dark-gray">
+                            <i class="fas fa-comment-alt text-accent"></i>
+                            <span>Message</span>
+                        </div>
+                        <div class="border border-light-gray rounded-lg p-4">
+                            <div class="scrollable-message">
+                                <p class="text-body text-primary leading-relaxed whitespace-pre-wrap" id="submitted-message">-</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notification Banner - Update this section -->
+                    <div class="bg-accent bg-opacity-10 border border-accent border-opacity-20 rounded-lg p-4 mb-8">
+                        <div class="flex items-center text-accent">
+                            <i class="fas fa-paper-plane text-lg mr-3"></i>
+                            <div>
+                                <h4 class="font-medium text-primary">Inquiry Sent Directly</h4>
+                                <p class="text-body-small mt-1 text-dark-gray" id="delivery-status">
+                                    Your inquiry has been sent directly to Advocate Shivam Jivani's email and WhatsApp. No database storage was used.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Delivery Status Details -->
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-8">
+                        <h4 class="text-body font-medium text-blue-800 mb-3 flex items-center">
+                            <i class="fas fa-info-circle mr-2"></i>
+                            Delivery Status
+                        </h4>
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-body-small text-blue-700 flex items-center">
+                                    <i class="fas fa-envelope mr-2"></i>
+                                    Email to shivamjivani2018@gmail.com
+                                </span>
+                                <span id="email-status" class="text-body-small font-medium">•••</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-body-small text-blue-700 flex items-center">
+                                    <i class="fab fa-whatsapp mr-2"></i>
+                                    WhatsApp to +917069984696
+                                </span>
+                                <span id="whatsapp-status" class="text-body-small font-medium">•••</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons - Add WhatsApp retry option -->
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <button onclick="goBackToForm()" class="btn-secondary px-8 py-3">
+                            <i class="fas fa-arrow-left mr-2"></i>
+                            Back to Form
+                        </button>
+                        <button id="whatsapp-retry-btn" class="hidden btn-accent px-8 py-3" onclick="openWhatsApp()">
+                            <i class="fab fa-whatsapp mr-2"></i>
+                            Open WhatsApp
+                        </button>
+                        <a href="homepage_with_hero_section.html" class="btn-primary px-8 py-3 text-center">
+                            <i class="fas fa-home mr-2"></i>
+                            Return to Homepage
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-white py-12">
+        <div class="container-custom">
+            <div class="text-center">
+                <div class="flex items-center justify-center space-x-3 mb-4">
+                    <div class="w-8 h-8 bg-accent rounded-full flex items-center justify-center">
+                        <i class="fas fa-balance-scale text-primary text-sm"></i>
+                    </div>
+                    <h3 class="text-xl font-serif font-bold">Advocate Shivam Jivani</h3>
+                </div>
+                <p class="text-medium-gray mb-6">Committed to Justice, Dedicated to Excellence</p>
+                <div class="flex justify-center space-x-6 mb-6">
+                    <a href="tel:+917069984696" class="text-accent hover:text-white transition-colors duration-300">
+                        <i class="fas fa-phone"></i>
+                    </a>
+                    <a href="mailto:shivamjivani2018@gmail.com" class="text-accent hover:text-white transition-colors duration-300">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                    <a href="https://maps.app.goo.gl/cU9r5KnzB6QzEguHA" target="_blank" class="text-accent hover:text-white transition-colors duration-300">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </a>
+                </div>
+                <p class="text-body-small text-medium-gray">
+                    © 2025 Advocate Shivam Jivani. All Rights Reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+
+        // Form submission data interface - Update to handle direct delivery
+        class FormSubmissionReader {
+            constructor() {
+                this.submissionData = null;
+                this.deliveryStatus = null;
+                this.init();
+            }
+
+            init() {
+                this.readSubmissionData();
+                this.displaySubmissionData();
+                this.updateDeliveryStatus();
+                this.setupEventListeners();
+                this.checkAdminAccess();
+            }
+
+            // Read submitted message and form data
+            readSubmissionData() {
+                try {
+                    // Try to get data from URL parameters first
+                    const urlParams = new URLSearchParams(window.location.search);
+                    
+                    if (urlParams.has('data')) {
+                        const encodedData = urlParams.get('data');
+                        const fullData = JSON.parse(decodeURIComponent(encodedData));
+                        this.submissionData = fullData;
+                        this.deliveryStatus = fullData.metadata?.deliveryStatus || null;
+                    } else {
+                        // Try to get data from localStorage (fallback)
+                        const storedData = localStorage.getItem('formSubmissionData');
+                        if (storedData) {
+                            const fullData = JSON.parse(storedData);
+                            this.submissionData = fullData;
+                            this.deliveryStatus = fullData.metadata?.deliveryStatus || null;
+                            // Clear data after reading
+                            localStorage.removeItem('formSubmissionData');
+                        } else {
+                            // Try to get data from sessionStorage (another fallback)
+                            const sessionData = sessionStorage.getItem('formSubmissionData');
+                            if (sessionData) {
+                                const fullData = JSON.parse(sessionData);
+                                this.submissionData = fullData;
+                                this.deliveryStatus = fullData.metadata?.deliveryStatus || null;
+                                sessionStorage.removeItem('formSubmissionData');
+                            }
+                        }
+                    }
+
+                    // If no data found, create sample data or redirect
+                    if (!this.submissionData) {
+                        this.createSampleData();
+                    }
+
+                    // Add metadata if not present
+                    if (!this.submissionData.metadata) {
+                        this.submissionData.metadata = {
+                            referenceNumber: this.generateReferenceNumber(),
+                            timestamp: new Date().toLocaleString(),
+                            submissionId: Date.now(),
+                            deliveryStatus: {
+                                email: true,
+                                whatsapp: true
+                            }
+                        };
+                        this.deliveryStatus = this.submissionData.metadata.deliveryStatus;
+                    }
+
+                } catch (error) {
+                    console.error('Error reading submission data:', error);
+                    this.createSampleData();
+                }
+            }
+
+            // Create sample data for demonstration
+            createSampleData() {
+                this.submissionData = {
+                    name: 'John Doe',
+                    email: 'john.doe@example.com',
+                    phone: '+91 98765 43210',
+                    caseType: 'Criminal Law',
+                    message: 'I need legal assistance regarding a criminal case. The matter involves false accusations and I require immediate consultation to understand my legal options and the best course of action.',
+                    metadata: {
+                        referenceNumber: this.generateReferenceNumber(),
+                        timestamp: new Date().toLocaleString(),
+                        submissionId: Date.now(),
+                        deliveryStatus: {
+                            email: true,
+                            whatsapp: true
+                        }
+                    }
+                };
+                this.deliveryStatus = this.submissionData.metadata.deliveryStatus;
+            }
+
+            // Update delivery status display
+            updateDeliveryStatus() {
+                const deliveryStatusText = document.getElementById('delivery-status');
+                const emailStatus = document.getElementById('email-status');
+                const whatsappStatus = document.getElementById('whatsapp-status');
+                const whatsappRetryBtn = document.getElementById('whatsapp-retry-btn');
+
+                if (this.deliveryStatus) {
+                    // Update email status
+                    if (emailStatus) {
+                        if (this.deliveryStatus.email) {
+                            emailStatus.innerHTML = '<span class="text-success"><i class="fas fa-check-circle mr-1"></i>Sent</span>';
+                        } else {
+                            emailStatus.innerHTML = '<span class="text-error"><i class="fas fa-times-circle mr-1"></i>Failed</span>';
+                        }
+                    }
+
+                    // Update WhatsApp status
+                    if (whatsappStatus) {
+                        if (this.deliveryStatus.whatsapp) {
+                            whatsappStatus.innerHTML = '<span class="text-success"><i class="fas fa-check-circle mr-1"></i>Opened</span>';
+                        } else {
+                            whatsappStatus.innerHTML = '<span class="text-error"><i class="fas fa-times-circle mr-1"></i>Failed</span>';
+                            // Show retry button for WhatsApp
+                            if (whatsappRetryBtn) {
+                                whatsappRetryBtn.classList.remove('hidden');
+                            }
+                        }
+                    }
+
+                    // Update main delivery status message
+                    if (deliveryStatusText) {
+                        if (this.deliveryStatus.email && this.deliveryStatus.whatsapp) {
+                            deliveryStatusText.textContent = 'Your inquiry has been sent via email and WhatsApp has been opened with your message.';
+                        } else if (this.deliveryStatus.email) {
+                            deliveryStatusText.textContent = 'Your inquiry has been sent via email. WhatsApp option is available below.';
+                        } else if (this.deliveryStatus.whatsapp) {
+                            deliveryStatusText.textContent = 'WhatsApp has been opened with your inquiry. Please send the pre-filled message.';
+                        } else {
+                            deliveryStatusText.textContent = 'There was an issue with automatic delivery. Please use the manual contact options below.';
+                        }
+                    }
+                }
+            }
+
+            // Generate WhatsApp link for retry
+            generateWhatsAppLink() {
+                if (!this.submissionData) return null;
+                
+                const phoneNumber = '917069984696';
+                const message = this.formatWhatsAppMessage();
+                const encodedMessage = encodeURIComponent(message);
+                return `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+            }
+
+            // Format message for WhatsApp
+            formatWhatsAppMessage() {
+                const caseType = this.formatCaseType(this.submissionData.caseType);
+                const submissionDate = this.submissionData.metadata.timestamp;
+
+                return `🏛️ *NEW LEGAL INQUIRY*\n\n` +
+                       `📋 *Reference:* ${this.submissionData.metadata.referenceNumber}\n` +
+                       `📅 *Date:* ${submissionDate}\n\n` +
+                       `👤 *Name:* ${this.submissionData.name}\n` +
+                       `📧 *Email:* ${this.submissionData.email}\n` +
+                       `📱 *Phone:* ${this.submissionData.phone || 'Not provided'}\n` +
+                       `⚖️ *Case Type:* ${caseType}\n\n` +
+                       `💬 *Message:*\n${this.submissionData.message}\n\n` +
+                       `---\n` +
+                       `This inquiry was submitted through the Advocate Shivam Jivani website contact form.`;
+            }
+
+            // Rest of the existing methods remain the same...
+            generateReferenceNumber() {
+                const prefix = 'SJ';
+                const timestamp = Date.now().toString().slice(-6);
+                const random = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+                return `${prefix}${timestamp}${random}`;
+            }
+
+            // Display the submitted data on the page
+            displaySubmissionData() {
+                if (!this.submissionData) return;
+
+                // Display basic information
+                this.setElementText('submitted-name', this.submissionData.name || 'Not provided');
+                this.setElementText('submitted-email', this.submissionData.email || 'Not provided');
+                this.setElementText('submitted-phone', this.submissionData.phone || 'Not provided');
+                this.setElementText('submitted-case-type', this.formatCaseType(this.submissionData.caseType) || 'Not selected');
+                this.setElementText('submitted-message', this.submissionData.message || 'No message provided');
+
+                // Display metadata
+                this.setElementText('reference-number', this.submissionData.metadata.referenceNumber);
+                this.setElementText('submission-timestamp', this.submissionData.metadata.timestamp);
+                this.setElementText('email-notification', this.submissionData.email || 'your email address');
+            }
+
+            // Helper method to safely set element text content
+            setElementText(elementId, text) {
+                const element = document.getElementById(elementId);
+                if (element) {
+                    element.textContent = text;
+                }
+            }
+
+            // Format case type for display
+            formatCaseType(caseType) {
+                if (!caseType) return 'Not selected';
+                
+                const formatMap = {
+                    'criminal-law': 'Criminal Law',
+                    'civil-litigation': 'Civil Litigation',
+                    'corporate-law': 'Corporate Law',
+                    'family-law': 'Family Law',
+                    'property-law': 'Property Law',
+                    'immigration-law': 'Immigration Law'
+                };
+                
+                return formatMap[caseType] || caseType;
+            }
+
+            // Setup event listeners
+            setupEventListeners() {
+                // Copy details button (admin only)
+                const copyBtn = document.getElementById('copy-details-btn');
+                if (copyBtn) {
+                    copyBtn.addEventListener('click', () => this.copyDetailsToClipboard());
+                }
+            }
+
+            // Check admin access (simple implementation)
+            checkAdminAccess() {
+                // Simple admin check - can be enhanced with proper authentication
+                const urlParams = new URLSearchParams(window.location.search);
+                const isAdmin = urlParams.get('admin') === 'true' || 
+                               localStorage.getItem('adminAccess') === 'true' ||
+                               window.location.hostname === 'localhost';
+                
+                if (isAdmin) {
+                    document.body.classList.add('admin-view');
+                }
+            }
+
+            // Copy submission details to clipboard (admin feature)
+            async copyDetailsToClipboard() {
+                if (!this.submissionData) return;
+
+                const formattedData = this.formatDataForClipboard();
+                
+                try {
+                    await navigator.clipboard.writeText(formattedData);
+                    this.showCopyFeedback(true);
+                } catch (error) {
+                    console.error('Failed to copy to clipboard:', error);
+                    this.showCopyFeedback(false);
+                }
+            }
+
+            // Format data for clipboard
+            formatDataForClipboard() {
+                const data = this.submissionData;
+                const deliveryInfo = this.deliveryStatus ? 
+                    `\nDelivery Status:\nEmail: ${this.deliveryStatus.email ? 'Sent' : 'Failed'}\nWhatsApp: ${this.deliveryStatus.whatsapp ? 'Opened' : 'Failed'}` : '';
+                
+                return `FORM SUBMISSION DETAILS (DIRECT DELIVERY)\n` +
+                       `============================================\n` +
+                       `Reference: ${data.metadata.referenceNumber}\n` +
+                       `Submitted: ${data.metadata.timestamp}${deliveryInfo}\n\n` +
+                       `Name: ${data.name}\n` +
+                       `Email: ${data.email}\n` +
+                       `Phone: ${data.phone}\n` +
+                       `Case Type: ${this.formatCaseType(data.caseType)}\n\n` +
+                       `Message:\n${data.message}\n\n` +
+                       `Generated by: Advocate Shivam Jivani Contact Form (Direct Delivery System)`;
+            }
+
+            // Show copy feedback
+            showCopyFeedback(success) {
+                const copyBtn = document.getElementById('copy-details-btn');
+                if (!copyBtn) return;
+
+                const originalText = copyBtn.innerHTML;
+                
+                if (success) {
+                    copyBtn.innerHTML = '<i class="fas fa-check mr-2"></i>Copied!';
+                    copyBtn.classList.add('bg-success', 'text-white');
+                } else {
+                    copyBtn.innerHTML = '<i class="fas fa-times mr-2"></i>Failed';
+                    copyBtn.classList.add('bg-error', 'text-white');
+                }
+
+                setTimeout(() => {
+                    copyBtn.innerHTML = originalText;
+                    copyBtn.classList.remove('bg-success', 'bg-error', 'text-white');
+                }, 2000);
+            }
+
+            // Get submission data (public method for external access)
+            getSubmissionData() {
+                return this.submissionData;
+            }
+
+            // Read specific field data
+            readField(fieldName) {
+                return this.submissionData?.[fieldName] || null;
+            }
+
+            // Read the user's message specifically
+            readMessage() {
+                return this.submissionData?.message || null;
+            }
+
+            // Get delivery status
+            getDeliveryStatus() {
+                return this.deliveryStatus;
+            }
+        }
+
+        // Go back to form function
+        function goBackToForm() {
+            window.history.back();
+        }
+
+        // Open WhatsApp with inquiry (retry function)
+        function openWhatsApp() {
+            const whatsappLink = submissionReader.generateWhatsAppLink();
+            if (whatsappLink) {
+                window.open(whatsappLink, '_blank');
+            }
+        }
+
+        // Initialize the form submission reader
+        const submissionReader = new FormSubmissionReader();
+
+        // Make reader available globally for debugging/external access
+        window.formSubmissionReader = submissionReader;
+
+        // Updated examples for direct delivery system
+        window.readUserMessage = function() {
+            return submissionReader.readMessage();
+        };
+
+        window.readAllSubmissionData = function() {
+            return submissionReader.getSubmissionData();
+        };
+
+        window.readFormField = function(fieldName) {
+            return submissionReader.readField(fieldName);
+        };
+
+        window.getDeliveryStatus = function() {
+            return submissionReader.getDeliveryStatus();
+        };
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Console log for demonstration
+        console.log('Form Submission Reader initialized (Direct Delivery System)');
+        console.log('User message:', submissionReader.readMessage());
+        console.log('All submission data:', submissionReader.getSubmissionData());
+        console.log('Delivery status:', submissionReader.getDeliveryStatus());
+    </script>
+
+    <script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+    <script id="dhws-elementInspector" src="../public/dhws-web-inspector.js"></script>
+    <script id="dhws-errorTracker" src="../public/dhws-error-tracker.js"></script>
+</body>
+</html>
